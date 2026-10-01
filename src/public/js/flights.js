@@ -76,24 +76,24 @@ export const FlightsView = {
       // Render tabla
       if (tbody) {
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">No se encontraron aeropuertos para el país seleccionado.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-[#BAC8B1]/70">No se encontraron aeropuertos para el país seleccionado.</td></tr>`;
         } else {
           tbody.innerHTML = data
             .map(
               (row, idx) => `
-            <tr class="hover:bg-slate-800/40 transition">
-              <td class="font-bold text-indigo-400">#${idx + 1}</td>
+            <tr class="hover:bg-[#253122]/40 transition">
+              <td class="font-bold text-[#BAC8B1]">#${idx + 1}</td>
               <td class="font-semibold text-white">${row.aeropuerto}</td>
-              <td><span class="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700">${row.pais}</span></td>
-              <td class="text-emerald-400 font-semibold">${row.total_visitantes.toLocaleString()}</td>
-              <td class="text-cyan-400">${row.total_vuelos.toLocaleString()}</td>
+              <td><span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#404E3B]/50 text-[#BAC8B1] border border-[#7B9669]/30">${row.pais}</span></td>
+              <td class="text-[#BAC8B1] font-semibold">${row.total_visitantes.toLocaleString()}</td>
+              <td class="text-[#7B9669] font-semibold">${row.total_vuelos.toLocaleString()}</td>
             </tr>`
             )
             .join('');
         }
       }
 
-      // Render Chart
+      // Render Chart con paleta Jade Pebble Morning
       this.renderTopAirportsChart(data, country, type);
     } catch (error) {
       showToast(`Error al consultar aeropuertos: ${error.message}`, 'error');
@@ -120,8 +120,8 @@ export const FlightsView = {
           {
             label: 'Total Visitantes',
             data: visitantes,
-            backgroundColor: 'rgba(99, 102, 241, 0.75)',
-            borderColor: '#6366f1',
+            backgroundColor: 'rgba(123, 150, 105, 0.85)', // #7B9669
+            borderColor: '#7B9669',
             borderWidth: 1.5,
             borderRadius: 8,
             yAxisID: 'y',
@@ -129,8 +129,8 @@ export const FlightsView = {
           {
             label: 'Total Vuelos',
             data: vuelos,
-            backgroundColor: 'rgba(6, 182, 212, 0.75)',
-            borderColor: '#06b6d4',
+            backgroundColor: 'rgba(108, 132, 128, 0.85)', // #6C8480
+            borderColor: '#6C8480',
             borderWidth: 1.5,
             borderRadius: 8,
             yAxisID: 'y1',
@@ -142,35 +142,35 @@ export const FlightsView = {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 12 } },
+            labels: { color: '#BAC8B1', font: { family: 'Plus Jakarta Sans', size: 12 } },
           },
           tooltip: {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            titleColor: '#fff',
-            bodyColor: '#cbd5e1',
-            borderColor: 'rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'rgba(28, 37, 26, 0.95)',
+            titleColor: '#FFFFFF',
+            bodyColor: '#E6E6E6',
+            borderColor: 'rgba(186, 200, 177, 0.3)',
             borderWidth: 1,
             padding: 12,
           },
         },
         scales: {
           x: {
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(186, 200, 177, 0.08)' },
+            ticks: { color: '#BAC8B1' },
           },
           y: {
             type: 'linear',
             position: 'left',
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#818cf8' },
-            title: { display: true, text: 'Visitantes', color: '#818cf8' },
+            grid: { color: 'rgba(186, 200, 177, 0.08)' },
+            ticks: { color: '#BAC8B1' },
+            title: { display: true, text: 'Visitantes', color: '#BAC8B1' },
           },
           y1: {
             type: 'linear',
             position: 'right',
             grid: { drawOnChartArea: false },
-            ticks: { color: '#22d3ee' },
-            title: { display: true, text: 'Vuelos', color: '#22d3ee' },
+            ticks: { color: '#6C8480' },
+            title: { display: true, text: 'Vuelos', color: '#6C8480' },
           },
         },
       },
@@ -185,24 +185,24 @@ export const FlightsView = {
       const res = await ApiClient.getMonthlyPerformance();
       this.allMonthlyData = res.data || [];
 
-      // Render tabla con primeros 20 y buscador simple
+      // Render tabla
       const tbody = document.getElementById('table-monthly-perf-body');
       if (tbody) {
         tbody.innerHTML = this.allMonthlyData
           .slice(0, 25)
           .map(
             (row) => `
-          <tr class="hover:bg-slate-800/40 transition">
-            <td class="font-mono text-slate-300">${row.anio} - M${row.mes.toString().padStart(2, '0')}</td>
+          <tr class="hover:bg-[#253122]/40 transition">
+            <td class="font-mono text-[#BAC8B1]">${row.anio} - M${row.mes.toString().padStart(2, '0')}</td>
             <td class="font-semibold text-white">${row.aerolinea}</td>
-            <td class="text-cyan-400">${row.total_vuelos.toLocaleString()}</td>
-            <td class="text-indigo-400">${row.total_pasajeros.toLocaleString()}</td>
-            <td class="text-emerald-400 font-semibold">$${row.total_ganancias.toLocaleString()}</td>
+            <td class="text-[#6C8480] font-semibold">${row.total_vuelos.toLocaleString()}</td>
+            <td class="text-[#BAC8B1] font-semibold">${row.total_pasajeros.toLocaleString()}</td>
+            <td class="text-[#7B9669] font-bold">$${row.total_ganancias.toLocaleString()}</td>
             <td>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-amber-400">${row.promedio_factor_ocupacion}%</span>
-                <div class="w-16 bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-amber-400 h-full rounded-full" style="width: ${row.promedio_factor_ocupacion}%"></div>
+                <span class="text-xs font-mono text-[#BAC8B1]">${row.promedio_factor_ocupacion}%</span>
+                <div class="w-16 bg-[#1b2319] h-1.5 rounded-full overflow-hidden border border-[#404E3B]">
+                  <div class="bg-[#7B9669] h-full rounded-full" style="width: ${row.promedio_factor_ocupacion}%"></div>
                 </div>
               </div>
             </td>
@@ -211,7 +211,6 @@ export const FlightsView = {
           .join('');
       }
 
-      // Gráfico agregado por mes
       this.renderMonthlyPerfChart();
     } catch (error) {
       showToast(`Error al cargar desempeño mensual: ${error.message}`, 'error');
@@ -224,7 +223,6 @@ export const FlightsView = {
 
     if (chartMonthlyPerf) chartMonthlyPerf.destroy();
 
-    // Agrupar métricas totales por mes para el gráfico
     const monthlyTotals = {};
     for (const d of this.allMonthlyData) {
       const key = `${d.anio}-${d.mes.toString().padStart(2, '0')}`;
@@ -248,8 +246,8 @@ export const FlightsView = {
           {
             label: 'Ingresos Totales (Millones USD)',
             data: revData,
-            borderColor: '#10b981',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderColor: '#7B9669',
+            backgroundColor: 'rgba(123, 150, 105, 0.15)',
             fill: true,
             tension: 0.35,
             yAxisID: 'y',
@@ -257,7 +255,7 @@ export const FlightsView = {
           {
             label: 'Pasajeros Totales (Miles)',
             data: passData,
-            borderColor: '#6366f1',
+            borderColor: '#BAC8B1',
             backgroundColor: 'transparent',
             borderDash: [5, 5],
             tension: 0.35,
@@ -269,21 +267,21 @@ export const FlightsView = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { labels: { color: '#94a3b8' } },
+          legend: { labels: { color: '#BAC8B1' } },
         },
         scales: {
-          x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+          x: { grid: { color: 'rgba(186, 200, 177, 0.08)' }, ticks: { color: '#BAC8B1' } },
           y: {
             type: 'linear',
             position: 'left',
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#34d399', callback: (v) => `$${v}M` },
+            grid: { color: 'rgba(186, 200, 177, 0.08)' },
+            ticks: { color: '#7B9669', callback: (v) => `$${v}M` },
           },
           y1: {
             type: 'linear',
             position: 'right',
             grid: { drawOnChartArea: false },
-            ticks: { color: '#818cf8', callback: (v) => `${v}k` },
+            ticks: { color: '#BAC8B1', callback: (v) => `${v}k` },
           },
         },
       },
@@ -303,16 +301,16 @@ export const FlightsView = {
         tbody.innerHTML = data
           .map(
             (r, i) => `
-          <tr class="hover:bg-slate-800/40 transition">
-            <td class="font-bold text-slate-400">#${i + 1}</td>
+          <tr class="hover:bg-[#253122]/40 transition">
+            <td class="font-bold text-[#BAC8B1]/70">#${i + 1}</td>
             <td class="font-semibold text-white">${r.aeropuerto_origen}</td>
-            <td class="font-semibold text-cyan-300">✈️ ${r.aeropuerto_destino}</td>
-            <td class="text-center font-mono text-cyan-400 font-bold">${r.total_vuelos}</td>
-            <td class="text-right text-indigo-300">${r.total_pasajeros.toLocaleString()}</td>
-            <td class="text-right font-bold text-emerald-400">$${r.total_ganancias.toLocaleString()}</td>
-            <td class="text-right font-mono text-emerald-300/90">$${r.promedio_ganancias_vuelo.toLocaleString()}</td>
+            <td class="font-semibold text-[#BAC8B1]">✈️ ${r.aeropuerto_destino}</td>
+            <td class="text-center font-mono text-[#6C8480] font-bold">${r.total_vuelos}</td>
+            <td class="text-right text-[#BAC8B1]">${r.total_pasajeros.toLocaleString()}</td>
+            <td class="text-right font-bold text-[#7B9669]">$${r.total_ganancias.toLocaleString()}</td>
+            <td class="text-right font-mono text-[#E6E6E6]">$${r.promedio_ganancias_vuelo.toLocaleString()}</td>
             <td>
-              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-400/10 text-amber-300 border border-amber-400/20">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-[#404E3B]/60 text-[#BAC8B1] border border-[#7B9669]/30">
                 ${r.promedio_factor_ocupacion}%
               </span>
             </td>
@@ -364,13 +362,13 @@ export const FlightsView = {
     tbody.innerHTML = filtered
       .map(
         (r) => `
-      <tr class="hover:bg-slate-800/40 transition">
-        <td class="font-mono text-slate-300">${r.anio}-${r.mes.toString().padStart(2, '0')}</td>
+      <tr class="hover:bg-[#253122]/40 transition">
+        <td class="font-mono text-[#BAC8B1]">${r.anio}-${r.mes.toString().padStart(2, '0')}</td>
         <td class="font-bold text-base">${medals[r.posicion_jerarquia_mensual] || r.posicion_jerarquia_mensual}</td>
         <td class="font-semibold text-white">${r.nombre_aerolinea}</td>
-        <td class="text-right font-bold text-emerald-400">$${r.total_ganancias.toLocaleString()}</td>
-        <td class="text-right text-cyan-300">${r.total_vuelos.toLocaleString()}</td>
-        <td class="text-right text-indigo-300">${r.total_pasajeros.toLocaleString()}</td>
+        <td class="text-right font-bold text-[#7B9669]">$${r.total_ganancias.toLocaleString()}</td>
+        <td class="text-right text-[#6C8480]">${r.total_vuelos.toLocaleString()}</td>
+        <td class="text-right text-[#BAC8B1]">${r.total_pasajeros.toLocaleString()}</td>
       </tr>`
       )
       .join('');
@@ -382,7 +380,6 @@ export const FlightsView = {
 
     if (chartRanking) chartRanking.destroy();
 
-    // Suma de ganancias de aerolíneas que aparecieron en el Top 5
     const totals = {};
     for (const d of this.allRankingData) {
       totals[d.nombre_aerolinea] = (totals[d.nombre_aerolinea] || 0) + d.total_ganancias;
@@ -392,6 +389,7 @@ export const FlightsView = {
     const labels = sortedAirlines.slice(0, 6);
     const data = labels.map((l) => Math.round(totals[l] / 1000000));
 
+    // Paleta Jade pebble morning para el ranking
     chartRanking = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -401,12 +399,12 @@ export const FlightsView = {
             label: 'Ingresos acumulados en Top 5 (Millones USD)',
             data,
             backgroundColor: [
-              'rgba(99, 102, 241, 0.8)',
-              'rgba(14, 165, 233, 0.8)',
-              'rgba(16, 185, 129, 0.8)',
-              'rgba(245, 158, 11, 0.8)',
-              'rgba(236, 72, 153, 0.8)',
-              'rgba(168, 85, 247, 0.8)',
+              '#7B9669',
+              '#6C8480',
+              '#BAC8B1',
+              '#404E3B',
+              '#8fa580',
+              '#5a6f6b',
             ],
             borderRadius: 8,
           },
@@ -421,12 +419,12 @@ export const FlightsView = {
         },
         scales: {
           x: {
-            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-            ticks: { color: '#94a3b8', callback: (v) => `$${v}M` },
+            grid: { color: 'rgba(186, 200, 177, 0.08)' },
+            ticks: { color: '#BAC8B1', callback: (v) => `$${v}M` },
           },
           y: {
             grid: { display: false },
-            ticks: { color: '#e2e8f0', font: { weight: '600' } },
+            ticks: { color: '#E6E6E6', font: { weight: '600' } },
           },
         },
       },

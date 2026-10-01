@@ -149,10 +149,10 @@ export function showToast(message, type = 'info') {
 
   const toast = document.createElement('div');
   const colors = {
-    success: 'bg-emerald-500/90 border-emerald-400 text-white',
-    error: 'bg-rose-500/90 border-rose-400 text-white',
-    info: 'bg-indigo-600/90 border-indigo-400 text-white',
-    warning: 'bg-amber-500/90 border-amber-400 text-white',
+    success: 'bg-[#7B9669]/95 border-[#BAC8B1] text-white',
+    error: 'bg-[#853434]/95 border-[#d66b6b] text-white',
+    info: 'bg-[#404E3B]/95 border-[#7B9669] text-[#E6E6E6]',
+    warning: 'bg-[#7d6023]/95 border-[#c49a3f] text-[#E6E6E6]',
   };
 
   toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl text-sm font-medium transition-all transform duration-300 translate-y-2 opacity-0 ${colors[type] || colors.info}`;
