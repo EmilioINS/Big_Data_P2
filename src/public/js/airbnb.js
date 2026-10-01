@@ -64,11 +64,11 @@ export const AirbnbView = {
         tbody.innerHTML = data
           .map(
             (row, idx) => `
-          <tr class="hover:bg-[#253122]/40 transition">
-            <td class="font-bold text-[#BAC8B1]/70">#${idx + 1}</td>
-            <td class="font-semibold text-white">${row.property_type}</td>
-            <td class="text-right font-mono font-bold text-[#7B9669]">$${row.precio_promedio.toLocaleString()}</td>
-            <td class="text-right text-[#6C8480] font-semibold">${row.total_anuncios.toLocaleString()}</td>
+          <tr class="hover:bg-[#F9FAFB] transition">
+            <td class="font-bold text-[#717171]">#${idx + 1}</td>
+            <td class="font-bold text-[#222222]">${row.property_type}</td>
+            <td class="text-right font-mono font-bold text-[#FF385C]">$${row.precio_promedio.toLocaleString()}</td>
+            <td class="text-right text-[#008489] font-bold">${row.total_anuncios.toLocaleString()}</td>
           </tr>`
           )
           .join('');
@@ -97,8 +97,8 @@ export const AirbnbView = {
           {
             label: 'Precio Promedio ($ USD)',
             data: prices,
-            backgroundColor: 'rgba(123, 150, 105, 0.85)', // #7B9669
-            borderColor: '#7B9669',
+            backgroundColor: 'rgba(255, 56, 92, 0.85)', // #FF385C
+            borderColor: '#FF385C',
             borderWidth: 1.5,
             borderRadius: 8,
           },
@@ -110,10 +110,10 @@ export const AirbnbView = {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: 'rgba(28, 37, 26, 0.95)',
-            titleColor: '#FFFFFF',
-            bodyColor: '#E6E6E6',
-            borderColor: 'rgba(186, 200, 177, 0.3)',
+            backgroundColor: '#FFFFFF',
+            titleColor: '#222222',
+            bodyColor: '#717171',
+            borderColor: '#DDDDDD',
             borderWidth: 1,
             callbacks: {
               label: (context) => ` Precio promedio: $${context.parsed.y} USD`,
@@ -123,11 +123,11 @@ export const AirbnbView = {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: '#BAC8B1', font: { size: 11 } },
+            ticks: { color: '#717171', font: { size: 11, weight: 'bold' } },
           },
           y: {
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#7B9669', callback: (v) => `$${v}` },
+            grid: { color: '#EBEBEB' },
+            ticks: { color: '#FF385C', callback: (v) => `$${v}`, font: { weight: 'bold' } },
           },
         },
       },
@@ -145,7 +145,7 @@ export const AirbnbView = {
 
     try {
       if (container) {
-        container.innerHTML = `<div class="col-span-full py-12 text-center"><span class="spinner inline-block"></span><p class="mt-2 text-sm text-[#BAC8B1]">Filtrando anuncios...</p></div>`;
+        container.innerHTML = `<div class="col-span-full py-12 text-center"><span class="spinner inline-block"></span><p class="mt-2 text-sm text-[#717171]">Buscando alojamientos...</p></div>`;
       }
 
       const res = await ApiClient.filterAmenitiesAndRating(minAmenities, minRating, 30);
@@ -157,40 +157,40 @@ export const AirbnbView = {
 
       if (container) {
         if (data.length === 0) {
-          container.innerHTML = `<div class="col-span-full py-12 text-center text-[#BAC8B1]/70">No se encontraron propiedades con esos criterios.</div>`;
+          container.innerHTML = `<div class="col-span-full py-12 text-center text-[#717171]">No se encontraron propiedades con esos criterios.</div>`;
           return;
         }
 
         container.innerHTML = data
           .map(
             (item) => `
-          <div class="glass-card p-5 flex flex-col justify-between hover:border-[#7B9669]/60 transition group">
+          <div class="glass-card p-5 flex flex-col justify-between bg-white border border-[#EBEBEB] rounded-2xl hover:shadow-xl transition group">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#7B9669]/20 text-[#BAC8B1] border border-[#7B9669]/30">
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#F7F7F7] text-[#222222] border border-[#EBEBEB]">
                   ${item.property_type}
                 </span>
-                <div class="flex items-center text-[#BAC8B1] text-xs font-bold gap-1 bg-[#404E3B]/60 px-2 py-0.5 rounded border border-[#BAC8B1]/20">
-                  ★ ${item.review_scores_rating || 'N/A'}/100
+                <div class="flex items-center text-[#222222] text-xs font-bold gap-1 bg-[#F7F7F7] px-2 py-0.5 rounded-full border border-[#EBEBEB]">
+                  ★ <span class="font-black text-[#222222]">${item.review_scores_rating || 'N/A'}</span>
                 </div>
               </div>
-              <h4 class="font-bold text-white text-sm mb-2 line-clamp-2 group-hover:text-[#BAC8B1] transition">
-                ${item.name || 'Sin título'}
+              <h4 class="font-extrabold text-[#222222] text-sm mb-2 line-clamp-2 group-hover:text-[#FF385C] transition">
+                ${item.name || 'Alojamiento en Airbnb'}
               </h4>
-              <p class="text-xs text-[#BAC8B1]/80 mb-3 flex items-center gap-2">
+              <p class="text-xs text-[#717171] mb-3 flex items-center gap-2">
                 <span>🛋️ <strong>${item.total_amenities}</strong> comodidades</span>
                 <span>•</span>
                 <span>👥 ${item.accommodates || 1} huéspedes</span>
               </p>
             </div>
-            <div class="pt-3 border-t border-[#404E3B]/60 flex items-center justify-between">
+            <div class="pt-3 border-t border-[#EBEBEB] flex items-center justify-between">
               <div>
-                <span class="text-lg font-extrabold text-[#7B9669]">$${item.price || 0}</span>
-                <span class="text-xs text-[#BAC8B1]/60"> / noche</span>
+                <span class="text-xl font-black text-[#222222]">$${item.price || 0}</span>
+                <span class="text-xs text-[#717171]"> / noche</span>
               </div>
               ${
                 item.listing_url
-                  ? `<a href="${item.listing_url}" target="_blank" rel="noopener" class="text-xs text-[#BAC8B1] hover:text-white font-medium flex items-center gap-1">Ver en Airbnb &rarr;</a>`
+                  ? `<a href="${item.listing_url}" target="_blank" rel="noopener" class="text-xs text-[#FF385C] hover:underline font-bold flex items-center gap-1">Ver anuncio &rarr;</a>`
                   : ''
               }
             </div>
@@ -221,16 +221,16 @@ export const AirbnbView = {
         tbody.innerHTML = data
           .map(
             (row, idx) => `
-          <tr class="hover:bg-[#253122]/40 transition">
+          <tr class="hover:bg-[#F9FAFB] transition">
             <td class="font-bold text-lg">${medals[idx] || `#${idx + 1}`}</td>
-            <td class="font-semibold text-white flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-[#7B9669] to-[#6C8480] flex items-center justify-center text-xs font-bold text-white uppercase">
+            <td class="font-bold text-[#222222] flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-[#FF385C] flex items-center justify-center text-xs font-black text-white uppercase shadow-sm">
                 ${row.reviewer_name?.charAt(0) || 'U'}
               </div>
               ${row.reviewer_name}
             </td>
-            <td class="text-[#BAC8B1]/70 font-mono text-xs">${row.reviewer_id}</td>
-            <td class="text-right font-bold text-[#BAC8B1] font-mono">${row.total_resenas} reseñas</td>
+            <td class="text-[#717171] font-mono text-xs">${row.reviewer_id}</td>
+            <td class="text-right font-black text-[#FF385C] font-mono">${row.total_resenas} reseñas</td>
           </tr>`
           )
           .join('');
@@ -259,8 +259,8 @@ export const AirbnbView = {
           {
             label: 'Total Reseñas Escritas',
             data: counts,
-            backgroundColor: 'rgba(108, 132, 128, 0.85)', // #6C8480
-            borderColor: '#6C8480',
+            backgroundColor: 'rgba(0, 132, 137, 0.85)', // #008489
+            borderColor: '#008489',
             borderRadius: 8,
           },
         ],
@@ -272,20 +272,21 @@ export const AirbnbView = {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: 'rgba(28, 37, 26, 0.95)',
-            titleColor: '#FFFFFF',
-            bodyColor: '#E6E6E6',
-            borderColor: 'rgba(186, 200, 177, 0.3)',
+            backgroundColor: '#FFFFFF',
+            titleColor: '#222222',
+            bodyColor: '#717171',
+            borderColor: '#DDDDDD',
+            borderWidth: 1,
           },
         },
         scales: {
           x: {
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#BAC8B1', stepSize: 2 },
+            grid: { color: '#EBEBEB' },
+            ticks: { color: '#717171', stepSize: 2, font: { weight: 'bold' } },
           },
           y: {
             grid: { display: false },
-            ticks: { color: '#E6E6E6', font: { weight: '600' } },
+            ticks: { color: '#222222', font: { weight: 'bold' } },
           },
         },
       },
@@ -303,19 +304,19 @@ export const AirbnbView = {
 
     try {
       if (container) {
-        container.innerHTML = `<div class="py-12 text-center"><span class="spinner inline-block"></span><p class="mt-2 text-sm text-[#BAC8B1]">Buscando menciones de "${text}"...</p></div>`;
+        container.innerHTML = `<div class="py-12 text-center"><span class="spinner inline-block"></span><p class="mt-2 text-sm text-[#717171]">Buscando menciones de "${text}"...</p></div>`;
       }
 
       const res = await ApiClient.searchReviews(text, 25);
       const data = res.data || [];
 
       if (countBadge) {
-        countBadge.textContent = `${data.length} coincidencias encontradas`;
+        countBadge.textContent = `${data.length} menciones`;
       }
 
       if (container) {
         if (data.length === 0) {
-          container.innerHTML = `<div class="py-12 text-center text-[#BAC8B1]/70">No se encontraron reseñas que contengan el texto solicitado.</div>`;
+          container.innerHTML = `<div class="py-12 text-center text-[#717171]">No se encontraron reseñas que contengan el texto solicitado.</div>`;
           return;
         }
 
@@ -325,21 +326,21 @@ export const AirbnbView = {
           .map((item) => {
             const highlighted = (item.comentario || '').replace(
               regex,
-              '<mark class="bg-[#7B9669]/40 text-[#BAC8B1] px-1 rounded font-semibold border border-[#7B9669]/50">$1</mark>'
+              '<mark class="bg-[#FFF0F2] text-[#FF385C] px-1 rounded font-bold border border-[#FF385C]/30">$1</mark>'
             );
 
             return `
-            <div class="glass-card p-5 hover:border-[#7B9669]/60 transition">
+            <div class="glass-card p-5 bg-white border border-[#EBEBEB] rounded-2xl hover:shadow-md transition">
               <div class="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <h4 class="font-bold text-white text-sm mb-1">${item.nombre_propiedad}</h4>
-                  <p class="text-xs text-[#BAC8B1] font-medium flex items-center gap-1">
+                  <h4 class="font-extrabold text-[#222222] text-sm mb-1">${item.nombre_propiedad}</h4>
+                  <p class="text-xs text-[#717171] font-semibold flex items-center gap-1">
                     <span>✍️ Reseña por:</span>
-                    <strong class="text-white">${item.nombre_reviewer || 'Anónimo'}</strong>
+                    <strong class="text-[#222222]">${item.nombre_reviewer || 'Huésped'}</strong>
                   </p>
                 </div>
               </div>
-              <blockquote class="text-xs text-[#E6E6E6] leading-relaxed bg-[#1b2319]/80 p-3.5 rounded-lg border border-[#404E3B] italic">
+              <blockquote class="text-xs text-[#484848] leading-relaxed bg-[#F7F7F7] p-4 rounded-xl border border-[#EBEBEB] italic">
                 "${highlighted}"
               </blockquote>
             </div>`;

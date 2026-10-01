@@ -1,33 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /**
- * PALETA DE COLORES: "Jade pebble morning"
- * - #7B9669: Jade Olive Green (Color primario de acento y acciones)
- * - #6C8480: Slate / Muted Teal Grey (Color secundario)
- * - #E6E6E6: Light Soft Grey / Off-white (Textos claros y superficies contrastantes)
- * - #BAC8B1: Pale Jade / Light Sage (Destacados, etiquetas y bordes suaves)
- * - #404E3B: Deep Pebble / Forest Olive (Superficies profundas y cabeceras)
+ * ESTILO AIRBNB (Design System)
+ * - Primario: #FF385C (Rausch / Airbnb Coral Red)
+ * - Secundario / Hover: #E00B41 (Dark Coral)
+ * - Acento Secundario: #008489 (Babu / Airbnb Teal)
+ * - Fondo Principal: #F7F7F7 (Off-White / Fog)
+ * - Superficies / Tarjetas: #FFFFFF (Pure White)
+ * - Tipografía Principal: #222222 (Charcoal)
+ * - Tipografía Secundaria: #717171 (Muted Grey)
+ * - Bordes y Divisores: #DDDDDD / #EBEBEB
  */
 
 :root {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-jade-primary: #7B9669;
-  --color-jade-slate: #6C8480;
-  --color-pebble-light: #E6E6E6;
-  --color-jade-sage: #BAC8B1;
-  --color-forest-pebble: #404E3B;
-
-  --bg-deep: #141a13;
-  --bg-card: rgba(36, 47, 33, 0.78);
-  --border-subtle: rgba(186, 200, 177, 0.16);
+  --airbnb-rausch: #FF385C;
+  --airbnb-dark-rausch: #E00B41;
+  --airbnb-teal: #008489;
+  --airbnb-charcoal: #222222;
+  --airbnb-muted: #717171;
+  --airbnb-bg: #F7F7F7;
+  --airbnb-card: #FFFFFF;
+  --airbnb-border: #EBEBEB;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-deep);
-  color: var(--color-pebble-light);
+  background-color: var(--airbnb-bg);
+  color: var(--airbnb-charcoal);
   min-height: 100vh;
 }
 
@@ -37,66 +39,63 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #141a13;
+  background: #F7F7F7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #404E3B;
+  background: #DDDDDD;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7B9669;
+  background: #FF385C;
 }
 
-/* Glassmorphism Cards */
+/* Airbnb Style Cards */
 .glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+  border: 1px solid var(--airbnb-border);
   border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(123, 150, 105, 0.45);
-  box-shadow: 0 10px 30px -10px rgba(64, 78, 59, 0.35);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+  border-color: #D1D5DB;
 }
 
 .glass-nav {
-  background: rgba(22, 29, 20, 0.88);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(186, 200, 177, 0.12);
+  border-bottom: 1px solid var(--airbnb-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-/* Gradients and Highlights basados en "Jade pebble morning" */
+/* Gradients and Highlights basados en Airbnb */
 .bg-brand-gradient {
-  background: linear-gradient(135deg, #7B9669 0%, #404E3B 55%, #6C8480 100%);
+  background: linear-gradient(135deg, #FF385C 0%, #E00B41 50%, #D70466 100%);
 }
 
 .bg-brand-btn {
-  background: #7B9669;
-  color: #ffffff;
+  background: linear-gradient(to right, #FF385C 0%, #E00B41 100%);
+  color: #FFFFFF;
+  font-weight: 600;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(255, 56, 92, 0.25);
 }
 
 .bg-brand-btn:hover {
-  background: #688057;
-  box-shadow: 0 4px 14px rgba(123, 150, 105, 0.35);
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 56, 92, 0.4);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #BAC8B1 0%, #7B9669 50%, #6C8480 100%);
+  background: linear-gradient(135deg, #FF385C 0%, #E00B41 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-sage {
-  background: linear-gradient(135deg, #ffffff 0%, #BAC8B1 60%, #7B9669 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Table Enhancements */
+/* Modern Tables estilo Airbnb */
 .modern-table {
   width: 100%;
   border-collapse: separate;
@@ -104,39 +103,50 @@ body {
 }
 
 .modern-table th {
-  background: rgba(28, 37, 26, 0.9);
-  color: #BAC8B1;
-  font-weight: 600;
+  background: #F9FAFB;
+  color: #6B7280;
+  font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0.875rem 1rem;
-  border-bottom: 1px solid rgba(186, 200, 177, 0.12);
+  border-bottom: 1px solid #E5E7EB;
 }
 
 .modern-table td {
   padding: 0.875rem 1rem;
   font-size: 0.875rem;
-  border-bottom: 1px solid rgba(186, 200, 177, 0.08);
-  color: #E6E6E6;
+  border-bottom: 1px solid #F3F4F6;
+  color: #1F2937;
 }
 
 .modern-table tr:hover td {
-  background: rgba(123, 150, 105, 0.08);
+  background: #F9FAFB;
 }
 
-/* Active navigation pill */
+/* Active navigation pill estilo Airbnb */
+.nav-tab-btn {
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.nav-tab-btn:hover {
+  background: #F3F4F6;
+  color: #111827;
+}
+
 .nav-tab-btn.active {
-  background: rgba(123, 150, 105, 0.22);
-  color: #BAC8B1;
-  border-color: rgba(123, 150, 105, 0.55);
+  background: #FFFFFF;
+  color: #111827;
+  border-color: #E5E7EB;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* Loading Spinner */
 .spinner {
-  border: 3px solid rgba(186, 200, 177, 0.15);
+  border: 3px solid rgba(255, 56, 92, 0.15);
   border-radius: 50%;
-  border-top: 3px solid #7B9669;
+  border-top: 3px solid #FF385C;
   width: 24px;
   height: 24px;
   animation: spin 0.8s linear infinite;

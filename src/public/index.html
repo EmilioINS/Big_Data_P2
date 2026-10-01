@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,27 +8,18 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            jade: {
-              DEFAULT: '#7B9669',
-              light: '#BAC8B1',
-              dark: '#404E3B',
-              slate: '#6C8480',
-              pebble: '#E6E6E6',
-              50: '#f5f7f4',
-              100: '#e8ede5',
-              200: '#BAC8B1',
-              300: '#9cb091',
-              400: '#7B9669',
-              500: '#688057',
-              600: '#546746',
-              700: '#404E3B',
-              800: '#2d3729',
-              900: '#1b2319',
-              950: '#141a13',
+            airbnb: {
+              DEFAULT: '#FF385C',
+              dark: '#E00B41',
+              teal: '#008489',
+              charcoal: '#222222',
+              muted: '#717171',
+              bg: '#F7F7F7',
+              border: '#EBEBEB',
+              light: '#FFF0F2',
             }
           }
         }
@@ -37,115 +28,119 @@
   </script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Estilos personalizados con paleta Jade pebble morning -->
-  <link rel="stylesheet" href="/css/styles.css?v=jade" />
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="/css/styles.css?v=airbnb" />
 </head>
-<body class="bg-[#141a13] text-[#E6E6E6] flex flex-col min-h-screen">
+<body class="bg-[#F7F7F7] text-[#222222] flex flex-col min-h-screen">
 
   <!-- Toast Container -->
   <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-auto"></div>
 
-  <!-- Navbar Superior -->
-  <header class="glass-nav sticky top-0 z-40 px-6 py-3.5 flex items-center justify-between">
+  <!-- Navbar Superior estilo Airbnb -->
+  <header class="glass-nav sticky top-0 z-40 px-6 py-3.5 flex items-center justify-between bg-white border-b border-[#EBEBEB]">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center shadow-lg shadow-[#404E3B]/40">
-        <span class="text-xl">🌿</span>
+      <div class="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center shadow-md shadow-[#FF385C]/20 text-white">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+          <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836 1.488 3.475 1.547 6.438.169 8.528-1.396 2.119-3.924 3.342-6.933 3.342-2.736 0-5.111-1.077-7.62-3.418-2.509 2.341-4.884 3.418-7.62 3.418-3.009 0-5.537-1.223-6.933-3.342-1.378-2.09-1.319-5.053.169-8.528.986-2.296 5.146-11.006 7.1-14.836l.533-1.025C8.537 1.963 9.992 1 12 1h4zm0 2.2c-1.328 0-2.316.637-3.486 2.766l-.503.966c-1.921 3.766-6.045 12.404-7.009 14.659-1.261 2.946-1.258 5.258-.225 6.828.995 1.51 2.827 2.381 5.223 2.381 2.179 0 4.195-.873 6.417-2.915l.583-.541.583.541c2.222 2.042 4.238 2.915 6.417 2.915 2.396 0 4.228-.871 5.223-2.381 1.033-1.57 1.036-3.882-.225-6.828-.964-2.255-5.088-10.893-7.009-14.659l-.503-.966C18.316 3.837 17.328 3.2 16 3.2zm0 10.8c2.43 0 4.4 1.97 4.4 4.4 0 2.43-1.97 4.4-4.4 4.4s-4.4-1.97-4.4-4.4c0-2.43 1.97-4.4 4.4-4.4zm0 2.2c-1.215 0-2.2 1.985-2.2 2.2 0 1.215.985 2.2 2.2 2.2s2.2-.985 2.2-2.2c0-1.215-.985-2.2-2.2-2.2z"/>
+        </svg>
       </div>
       <div>
-        <h1 class="text-base font-extrabold tracking-tight text-[#E6E6E6] flex items-center gap-2">
-          Big Data Analytics <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#7B9669]/20 text-[#BAC8B1] border border-[#7B9669]/30">Examen C1</span>
+        <h1 class="text-base font-extrabold tracking-tight text-[#222222] flex items-center gap-2">
+          Big Data Analytics <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/30 font-bold">Airbnb Edition</span>
         </h1>
-        <p class="text-xs text-[#BAC8B1]/70">MongoDB Aggregation Framework • Node.js API • JWT Auth</p>
+        <p class="text-xs text-[#717171]">MongoDB Aggregation Framework • Node.js REST API • JWT Auth</p>
       </div>
     </div>
 
     <!-- Perfil de usuario autenticado -->
     <div id="user-profile-header" class="hidden flex items-center gap-4">
       <div class="text-right hidden sm:block">
-        <p id="user-display-name" class="text-sm font-bold text-[#E6E6E6]"></p>
-        <p id="user-display-email" class="text-xs text-[#BAC8B1]/80 font-mono"></p>
+        <p id="user-display-name" class="text-sm font-bold text-[#222222]"></p>
+        <p id="user-display-email" class="text-xs text-[#717171] font-mono"></p>
       </div>
-      <div class="w-9 h-9 rounded-full bg-[#404E3B]/60 border border-[#7B9669]/50 flex items-center justify-center font-bold text-sm text-[#BAC8B1]">
+      <div class="w-9 h-9 rounded-full bg-[#F7F7F7] border border-[#DDDDDD] flex items-center justify-center font-bold text-sm text-[#717171]">
         👤
       </div>
-      <button id="btn-logout" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition">
+      <button id="btn-logout" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#F7F7F7] text-[#717171] border border-[#DDDDDD] hover:border-[#222222] hover:text-[#222222] transition">
         Cerrar Sesión
       </button>
     </div>
   </header>
 
   <!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
-  <div id="auth-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card max-w-md w-full p-8 relative shadow-2xl border-[#BAC8B1]/20 animate-fade-in">
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-8 relative shadow-2xl border-[#EBEBEB] bg-white rounded-2xl">
       <div class="text-center mb-6">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-gradient flex items-center justify-center shadow-xl shadow-[#404E3B]/50 mb-3 text-2xl">
-          🔐
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-gradient flex items-center justify-center shadow-lg shadow-[#FF385C]/25 mb-3 text-white">
+          <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836 1.488 3.475 1.547 6.438.169 8.528-1.396 2.119-3.924 3.342-6.933 3.342-2.736 0-5.111-1.077-7.62-3.418-2.509 2.341-4.884 3.418-7.62 3.418-3.009 0-5.537-1.223-6.933-3.342-1.378-2.09-1.319-5.053.169-8.528.986-2.296 5.146-11.006 7.1-14.836l.533-1.025C8.537 1.963 9.992 1 12 1h4zm0 2.2c-1.328 0-2.316.637-3.486 2.766l-.503.966c-1.921 3.766-6.045 12.404-7.009 14.659-1.261 2.946-1.258 5.258-.225 6.828.995 1.51 2.827 2.381 5.223 2.381 2.179 0 4.195-.873 6.417-2.915l.583-.541.583.541c2.222 2.042 4.238 2.915 6.417 2.915 2.396 0 4.228-.871 5.223-2.381 1.033-1.57 1.036-3.882-.225-6.828-.964-2.255-5.088-10.893-7.009-14.659l-.503-.966C18.316 3.837 17.328 3.2 16 3.2zm0 10.8c2.43 0 4.4 1.97 4.4 4.4 0 2.43-1.97 4.4-4.4 4.4s-4.4-1.97-4.4-4.4c0-2.43 1.97-4.4 4.4-4.4zm0 2.2c-1.215 0-2.2 1.985-2.2 2.2 0 1.215.985 2.2 2.2 2.2s2.2-.985 2.2-2.2c0-1.215-.985-2.2-2.2-2.2z"/>
+          </svg>
         </div>
-        <h2 class="text-2xl font-black text-white tracking-tight">Acceso a la Plataforma</h2>
-        <p class="text-xs text-[#BAC8B1]/80 mt-1">Autenticación requerida para consultar las APIs de Big Data</p>
+        <h2 class="text-2xl font-black text-[#222222] tracking-tight">Iniciar Sesión</h2>
+        <p class="text-xs text-[#717171] mt-1">Autenticación requerida para acceder al Dashboard</p>
       </div>
 
       <!-- Formulario Login -->
       <form id="login-form" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Correo Electrónico</label>
+          <label class="block text-xs font-bold text-[#222222] mb-1">Correo Electrónico</label>
           <input type="email" id="login-email" required value="admin@examen.com"
-            class="w-full px-4 py-2.5 rounded-xl bg-[#1c2419]/90 border border-[#404E3B] text-sm text-[#E6E6E6] placeholder-slate-500 focus:outline-none focus:border-[#7B9669] focus:ring-1 focus:ring-[#7B9669]"
+            class="w-full px-4 py-3 rounded-xl bg-white border border-[#B0B0B0] text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#222222] focus:ring-1 focus:ring-[#222222]"
             placeholder="ejemplo@correo.com" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Contraseña</label>
+          <label class="block text-xs font-bold text-[#222222] mb-1">Contraseña</label>
           <input type="password" id="login-password" required value="admin123"
-            class="w-full px-4 py-2.5 rounded-xl bg-[#1c2419]/90 border border-[#404E3B] text-sm text-[#E6E6E6] placeholder-slate-500 focus:outline-none focus:border-[#7B9669] focus:ring-1 focus:ring-[#7B9669]"
+            class="w-full px-4 py-3 rounded-xl bg-white border border-[#B0B0B0] text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#222222] focus:ring-1 focus:ring-[#222222]"
             placeholder="••••••••" />
         </div>
         <button type="submit"
-          class="w-full py-2.5 rounded-xl bg-brand-btn font-bold text-sm shadow-lg shadow-[#7B9669]/25 transition">
-          Iniciar Sesión
+          class="w-full py-3 rounded-xl bg-brand-btn font-bold text-sm shadow-md transition">
+          Continuar
         </button>
 
-        <div class="pt-3 border-t border-[#404E3B]/60 text-center">
-          <p class="text-xs text-[#BAC8B1]/70">
+        <div class="pt-3 border-t border-[#EBEBEB] text-center">
+          <p class="text-xs text-[#717171]">
             ¿No tienes una cuenta?
-            <a href="#" id="btn-show-register" class="text-[#BAC8B1] font-semibold hover:text-[#7B9669] underline">Registrarse aquí</a>
+            <a href="#" id="btn-show-register" class="text-[#222222] font-bold hover:text-[#FF385C] underline">Regístrate aquí</a>
           </p>
         </div>
 
-        <div class="bg-[#404E3B]/30 border border-[#7B9669]/30 rounded-lg p-3 text-xs text-[#E6E6E6] mt-3">
-          <p class="font-semibold text-[#BAC8B1]">💡 Credenciales de prueba precargadas:</p>
-          <p class="font-mono text-[11px] text-[#BAC8B1]/80 mt-0.5">admin@examen.com / admin123</p>
+        <div class="bg-[#FFF0F2] border border-[#FF385C]/20 rounded-xl p-3 text-xs text-[#222222] mt-3">
+          <p class="font-bold text-[#FF385C]">💡 Credenciales precargadas para evaluación:</p>
+          <p class="font-mono text-[11px] text-[#717171] mt-0.5">admin@examen.com / admin123</p>
         </div>
       </form>
 
       <!-- Formulario Registro -->
       <form id="register-form" class="space-y-4 hidden">
         <div>
-          <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Nombre Completo</label>
+          <label class="block text-xs font-bold text-[#222222] mb-1">Nombre Completo</label>
           <input type="text" id="reg-name" required
-            class="w-full px-4 py-2.5 rounded-xl bg-[#1c2419]/90 border border-[#404E3B] text-sm text-[#E6E6E6] placeholder-slate-500 focus:outline-none focus:border-[#7B9669]"
+            class="w-full px-4 py-3 rounded-xl bg-white border border-[#B0B0B0] text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#222222]"
             placeholder="Tu Nombre" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Correo Electrónico</label>
+          <label class="block text-xs font-bold text-[#222222] mb-1">Correo Electrónico</label>
           <input type="email" id="reg-email" required
-            class="w-full px-4 py-2.5 rounded-xl bg-[#1c2419]/90 border border-[#404E3B] text-sm text-[#E6E6E6] placeholder-slate-500 focus:outline-none focus:border-[#7B9669]"
+            class="w-full px-4 py-3 rounded-xl bg-white border border-[#B0B0B0] text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#222222]"
             placeholder="ejemplo@correo.com" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Contraseña (mínimo 6 caracteres)</label>
+          <label class="block text-xs font-bold text-[#222222] mb-1">Contraseña (mínimo 6 caracteres)</label>
           <input type="password" id="reg-password" required minlength="6"
-            class="w-full px-4 py-2.5 rounded-xl bg-[#1c2419]/90 border border-[#404E3B] text-sm text-[#E6E6E6] placeholder-slate-500 focus:outline-none focus:border-[#7B9669]"
+            class="w-full px-4 py-3 rounded-xl bg-white border border-[#B0B0B0] text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#222222]"
             placeholder="••••••••" />
         </div>
         <button type="submit"
-          class="w-full py-2.5 rounded-xl bg-brand-btn font-bold text-sm shadow-lg shadow-[#7B9669]/25 transition">
+          class="w-full py-3 rounded-xl bg-brand-btn font-bold text-sm shadow-md transition">
           Crear Cuenta
         </button>
 
-        <div class="pt-3 border-t border-[#404E3B]/60 text-center">
-          <p class="text-xs text-[#BAC8B1]/70">
+        <div class="pt-3 border-t border-[#EBEBEB] text-center">
+          <p class="text-xs text-[#717171]">
             ¿Ya tienes una cuenta?
-            <a href="#" id="btn-show-login" class="text-[#BAC8B1] font-semibold hover:text-[#7B9669] underline">Inicia sesión</a>
+            <a href="#" id="btn-show-login" class="text-[#222222] font-bold hover:text-[#FF385C] underline">Inicia sesión</a>
           </p>
         </div>
       </form>
@@ -155,23 +150,23 @@
   <!-- CONTENIDO PRINCIPAL DEL DASHBOARD -->
   <main id="dashboard-content" class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
-    <!-- Barra de navegación de pestañas -->
-    <div class="flex items-center justify-between border-b border-[#404E3B]/60 pb-3 flex-wrap gap-3">
-      <div class="flex items-center gap-2">
-        <button data-tab="tab-overview" class="nav-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-transparent transition flex items-center gap-2">
+    <!-- Barra de navegación de pestañas estilo Airbnb Pill Tabs -->
+    <div class="flex items-center justify-between border-b border-[#EBEBEB] pb-3 flex-wrap gap-3">
+      <div class="flex items-center gap-2 bg-[#EBEBEB]/50 p-1.5 rounded-full border border-[#E5E7EB]">
+        <button data-tab="tab-overview" class="nav-tab-btn active px-5 py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2">
           <span>📊</span> Resumen General
         </button>
-        <button data-tab="tab-flights" class="nav-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-transparent text-[#BAC8B1]/70 hover:text-[#E6E6E6] transition flex items-center gap-2">
-          <span>✈️</span> Analítica de Vuelos (Flights)
+        <button data-tab="tab-flights" class="nav-tab-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold text-[#717171] hover:text-[#222222] flex items-center gap-2">
+          <span>✈️</span> Vuelos (Flights)
         </button>
-        <button data-tab="tab-airbnb" class="nav-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-transparent text-[#BAC8B1]/70 hover:text-[#E6E6E6] transition flex items-center gap-2">
-          <span>🏡</span> Analítica de Airbnb
+        <button data-tab="tab-airbnb" class="nav-tab-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold text-[#717171] hover:text-[#222222] flex items-center gap-2">
+          <span>🏡</span> Alojamientos Airbnb
         </button>
       </div>
 
-      <div class="flex items-center gap-2 text-xs font-mono text-[#BAC8B1] bg-[#404E3B]/40 px-3 py-1.5 rounded-lg border border-[#7B9669]/30">
-        <span class="w-2 h-2 rounded-full bg-[#7B9669] animate-pulse"></span>
-        <span>Atlas Connected: Examen_P2</span>
+      <div class="flex items-center gap-2 text-xs font-mono text-[#008489] bg-[#E6F7F7] px-3.5 py-1.5 rounded-full border border-[#008489]/20 font-bold">
+        <span class="w-2 h-2 rounded-full bg-[#008489] animate-pulse"></span>
+        <span>Atlas: Examen_P2 Conectado</span>
       </div>
     </div>
 
@@ -179,81 +174,81 @@
     <!-- SECCIÓN 1: RESUMEN GENERAL (OVERVIEW)                     -->
     <!-- ======================================================== -->
     <section id="section-overview" class="space-y-6">
-      <!-- Tarjetas KPI con la paleta Jade pebble morning -->
+      <!-- Tarjetas KPI estilo Airbnb -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="glass-card p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#BAC8B1]">Total Vuelos</span>
+        <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#717171]">Total Vuelos</span>
             <span class="text-xl">✈️</span>
           </div>
-          <p class="text-3xl font-extrabold text-white">57,000</p>
-          <p class="text-xs text-[#7B9669] mt-1 font-medium">Colección flights indexada</p>
+          <p class="text-3xl font-black text-[#222222]">57,000</p>
+          <p class="text-xs text-[#008489] mt-1 font-semibold">Colección flights indexada</p>
         </div>
 
-        <div class="glass-card p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#BAC8B1]">Alojamientos Airbnb</span>
+        <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#717171]">Alojamientos Airbnb</span>
             <span class="text-xl">🏡</span>
           </div>
-          <p class="text-3xl font-extrabold text-[#BAC8B1]">5,555</p>
-          <p class="text-xs text-[#6C8480] mt-1 font-medium">Con reviews y Decimal128</p>
+          <p class="text-3xl font-black text-[#FF385C]">5,555</p>
+          <p class="text-xs text-[#717171] mt-1 font-semibold">Con reviews y Decimal128</p>
         </div>
 
-        <div class="glass-card p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#BAC8B1]">Consultas de Agregación</span>
+        <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#717171]">Pipelines de Agregación</span>
             <span class="text-xl">⚡</span>
           </div>
-          <p class="text-3xl font-extrabold text-[#7B9669]">8</p>
-          <p class="text-xs text-[#BAC8B1]/70 mt-1">4 de Vuelos + 4 de Airbnb</p>
+          <p class="text-3xl font-black text-[#222222]">8</p>
+          <p class="text-xs text-[#717171] mt-1 font-semibold">4 de Vuelos + 4 de Airbnb</p>
         </div>
 
-        <div class="glass-card p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#BAC8B1]">Seguridad API</span>
+        <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#717171]">Seguridad API</span>
             <span class="text-xl">🛡️</span>
           </div>
-          <p class="text-3xl font-extrabold text-[#E6E6E6]">JWT</p>
-          <p class="text-xs text-[#7B9669] mt-1 font-medium">Bearer Token en todas las rutas</p>
+          <p class="text-3xl font-black text-[#FF385C]">JWT</p>
+          <p class="text-xs text-[#717171] mt-1 font-semibold">Bearer Token en todas las rutas</p>
         </div>
       </div>
 
       <!-- Tarjeta informativa del Examen -->
-      <div class="glass-card p-6 border-[#7B9669]/40">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
-              <span class="text-[#BAC8B1]">🍃</span> Examen - Competencia 1: Big Data
+            <h3 class="text-xl font-extrabold text-[#222222] mb-2 flex items-center gap-2">
+              <span class="text-[#FF385C]">🏡</span> Examen - Competencia 1: Big Data
             </h3>
-            <p class="text-sm text-[#E6E6E6] max-w-3xl leading-relaxed">
-              Sistema integral desarrollado con el <strong>Framework de Agregación de MongoDB</strong>, 
-              una API REST construida en <strong>Node.js v24 LTS</strong> con protección <strong>JWT</strong>, 
-              y un Dashboard analítico interactivo con la paleta de diseño <em>Jade Pebble Morning</em>.
+            <p class="text-sm text-[#717171] max-w-3xl leading-relaxed">
+              Plataforma desarrollada con el <strong>Framework de Agregación de MongoDB</strong>, 
+              una API REST construida en <strong>Node.js v24 LTS</strong> protegida por <strong>JWT</strong>, 
+              y un Dashboard interactivo con el sistema de diseño moderno de <strong>Airbnb</strong>.
             </p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs bg-[#404E3B]/50 text-[#BAC8B1] px-3 py-1.5 rounded-lg border border-[#BAC8B1]/20">Materia: Big Data</span>
-            <span class="text-xs bg-[#404E3B]/50 text-[#BAC8B1] px-3 py-1.5 rounded-lg border border-[#BAC8B1]/20">Prof: M.A.V.D. José Jesús Sánchez Farías</span>
+            <span class="text-xs bg-[#F7F7F7] text-[#222222] font-semibold px-3 py-1.5 rounded-full border border-[#EBEBEB]">Materia: Big Data</span>
+            <span class="text-xs bg-[#F7F7F7] text-[#222222] font-semibold px-3 py-1.5 rounded-full border border-[#EBEBEB]">Prof: M.A.V.D. José Jesús Sánchez Farías</span>
           </div>
         </div>
 
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-[#404E3B]/60">
-          <div class="bg-[#1c2419]/70 p-4 rounded-xl border border-[#404E3B]">
-            <h4 class="font-bold text-[#BAC8B1] text-sm mb-2 flex items-center gap-1.5">
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-[#EBEBEB]">
+          <div class="bg-[#F7F7F7] p-5 rounded-xl border border-[#EBEBEB]">
+            <h4 class="font-extrabold text-[#222222] text-sm mb-2 flex items-center gap-1.5">
               <span>🛫</span> Módulo de Vuelos (Flights)
             </h4>
-            <ul class="text-xs text-[#E6E6E6] space-y-1.5">
+            <ul class="text-xs text-[#717171] space-y-1.5 font-medium">
               <li>• <strong>2.1:</strong> Top 3 aeropuertos origen/destino filtrables por país.</li>
               <li>• <strong>2.2:</strong> Desempeño mensual de aerolíneas (vuelos, pasajeros, ingresos).</li>
               <li>• <strong>2.3:</strong> 50 rutas más rentables con más de 70 vuelos operados.</li>
               <li>• <strong>2.4:</strong> Ranking mensual top 5 de aerolíneas ordenadas por ingresos.</li>
             </ul>
           </div>
-          <div class="bg-[#1c2419]/70 p-4 rounded-xl border border-[#404E3B]">
-            <h4 class="font-bold text-[#7B9669] text-sm mb-2 flex items-center gap-1.5">
+          <div class="bg-[#F7F7F7] p-5 rounded-xl border border-[#EBEBEB]">
+            <h4 class="font-extrabold text-[#FF385C] text-sm mb-2 flex items-center gap-1.5">
               <span>🏠</span> Módulo Airbnb Listings & Reviews
             </h4>
-            <ul class="text-xs text-[#E6E6E6] space-y-1.5">
+            <ul class="text-xs text-[#717171] space-y-1.5 font-medium">
               <li>• <strong>3.1:</strong> Precio medio y volumen de anuncios por tipo de propiedad.</li>
               <li>• <strong>3.2:</strong> Filtro paramétrico por comodidades (>5) y calificación (>90).</li>
               <li>• <strong>3.3:</strong> Top 5 mejores revisores con mayor cantidad de reseñas escritas.</li>
@@ -270,39 +265,39 @@
     <section id="section-flights" class="space-y-8 hidden">
 
       <!-- CONSULTA 2.1: Top 3 Aeropuertos -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#BAC8B1] font-bold uppercase">Consulta 2.1</span>
-            <h3 class="text-lg font-bold text-white">Top 3 Aeropuertos (Origen / Destino por País)</h3>
+            <span class="text-xs font-mono text-[#FF385C] font-bold uppercase">Consulta 2.1</span>
+            <h3 class="text-lg font-black text-[#222222]">Top 3 Aeropuertos (Origen / Destino por País)</h3>
           </div>
-          <span class="text-xs text-[#BAC8B1]/70">Total de visitantes y vuelos operados</span>
+          <span class="text-xs text-[#717171]">Total de visitantes y vuelos operados</span>
         </div>
 
         <!-- Formulario paramétrico -->
-        <form id="form-top-airports" class="bg-[#1c2419]/80 p-4 rounded-xl border border-[#404E3B] flex flex-wrap items-end gap-4">
+        <form id="form-top-airports" class="bg-[#F7F7F7] p-4 rounded-xl border border-[#EBEBEB] flex flex-wrap items-end gap-4">
           <div class="flex-1 min-w-[200px]">
-            <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">País Seleccionado</label>
-            <select id="select-country" class="w-full px-3 py-2 rounded-lg bg-[#273223] border border-[#404E3B] text-sm text-[#E6E6E6] focus:outline-none focus:border-[#7B9669]">
+            <label class="block text-xs font-bold text-[#222222] mb-1">País Seleccionado</label>
+            <select id="select-country" class="w-full px-3 py-2 rounded-lg bg-white border border-[#DDDDDD] text-sm text-[#222222] focus:outline-none focus:border-[#FF385C]">
               <option value="SPAIN">SPAIN</option>
             </select>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Criterio</label>
+            <label class="block text-xs font-bold text-[#222222] mb-1">Criterio</label>
             <div class="flex items-center gap-4 py-2 text-xs">
-              <label class="flex items-center gap-1.5 cursor-pointer text-[#E6E6E6]">
-                <input type="radio" name="airport-type" value="destination" checked class="accent-[#7B9669]" />
+              <label class="flex items-center gap-1.5 cursor-pointer text-[#222222] font-semibold">
+                <input type="radio" name="airport-type" value="destination" checked class="accent-[#FF385C]" />
                 <span>Como Destino</span>
               </label>
-              <label class="flex items-center gap-1.5 cursor-pointer text-[#E6E6E6]">
-                <input type="radio" name="airport-type" value="origin" class="accent-[#7B9669]" />
+              <label class="flex items-center gap-1.5 cursor-pointer text-[#222222] font-semibold">
+                <input type="radio" name="airport-type" value="origin" class="accent-[#FF385C]" />
                 <span>Como Origen</span>
               </label>
             </div>
           </div>
 
-          <button type="submit" class="px-5 py-2 rounded-lg bg-brand-btn text-xs font-bold transition flex items-center gap-2">
+          <button type="submit" class="px-5 py-2.5 rounded-lg bg-brand-btn text-xs font-bold transition flex items-center gap-2">
             <span>🔍</span> Filtrar Aeropuertos
           </button>
         </form>
@@ -330,13 +325,13 @@
       </div>
 
       <!-- CONSULTA 2.2: Desempeño Mensual -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#7B9669] font-bold uppercase">Consulta 2.2</span>
-            <h3 class="text-lg font-bold text-white">Desempeño Mensual de las Aerolíneas</h3>
+            <span class="text-xs font-mono text-[#008489] font-bold uppercase">Consulta 2.2</span>
+            <h3 class="text-lg font-black text-[#222222]">Desempeño Mensual de las Aerolíneas</h3>
           </div>
-          <span class="text-xs text-[#BAC8B1]/70">Año, Mes, Aerolínea, Vuelos, Pasajeros, Ganancias y Factor de Ocupación</span>
+          <span class="text-xs text-[#717171]">Año, Mes, Aerolínea, Vuelos, Pasajeros, Ganancias y Factor de Ocupación</span>
         </div>
 
         <div class="h-72 relative">
@@ -361,13 +356,13 @@
       </div>
 
       <!-- CONSULTA 2.3: 50 Rutas Más Rentables -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#BAC8B1] font-bold uppercase">Consulta 2.3</span>
-            <h3 class="text-lg font-bold text-white">Listado de las 50 Rutas Más Rentables</h3>
+            <span class="text-xs font-mono text-[#FF385C] font-bold uppercase">Consulta 2.3</span>
+            <h3 class="text-lg font-black text-[#222222]">Listado de las 50 Rutas Más Rentables</h3>
           </div>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-[#404E3B]/60 text-[#BAC8B1] border border-[#7B9669]/30 font-mono">
+          <span class="text-xs px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/30 font-bold">
             Filtro: Vuelos Operados > 70
           </span>
         </div>
@@ -392,15 +387,15 @@
       </div>
 
       <!-- CONSULTA 2.4: Ranking Mensual Top 5 -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#6C8480] font-bold uppercase">Consulta 2.4</span>
-            <h3 class="text-lg font-bold text-white">Clasificación de Aerolíneas por Ingresos (Top 5 Mensual)</h3>
+            <span class="text-xs font-mono text-[#222222] font-bold uppercase">Consulta 2.4</span>
+            <h3 class="text-lg font-black text-[#222222]">Clasificación de Aerolíneas por Ingresos (Top 5 Mensual)</h3>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-[#BAC8B1]">Filtrar Mes:</span>
-            <select id="filter-ranking-month" class="px-2.5 py-1 rounded bg-[#273223] border border-[#404E3B] text-xs text-[#E6E6E6]">
+            <span class="text-xs text-[#717171] font-semibold">Filtrar Mes:</span>
+            <select id="filter-ranking-month" class="px-2.5 py-1 rounded bg-[#F7F7F7] border border-[#DDDDDD] text-xs text-[#222222] font-semibold">
               <option value="all">Todos los meses</option>
             </select>
           </div>
@@ -436,13 +431,13 @@
     <section id="section-airbnb" class="space-y-8 hidden">
 
       <!-- CONSULTA 3.1: Precio Medio por Tipo de Propiedad -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#7B9669] font-bold uppercase">Consulta 3.1</span>
-            <h3 class="text-lg font-bold text-white">Precio Medio por Tipo de Propiedad</h3>
+            <span class="text-xs font-mono text-[#FF385C] font-bold uppercase">Consulta 3.1</span>
+            <h3 class="text-lg font-black text-[#222222]">Precio Medio por Tipo de Propiedad</h3>
           </div>
-          <span class="text-xs text-[#BAC8B1]/70">Tipo de propiedad, precio promedio y total anuncios</span>
+          <span class="text-xs text-[#717171]">Tipo de propiedad, precio promedio y total anuncios</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -466,50 +461,50 @@
       </div>
 
       <!-- CONSULTA 3.2: Anuncios por Comodidades y Rating -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#BAC8B1] font-bold uppercase">Consulta 3.2</span>
-            <h3 class="text-lg font-bold text-white">Anuncios con Filtro de Comodidades y Calificación</h3>
+            <span class="text-xs font-mono text-[#FF385C] font-bold uppercase">Consulta 3.2</span>
+            <h3 class="text-lg font-black text-[#222222]">Anuncios con Filtro de Comodidades y Calificación</h3>
           </div>
-          <span id="listings-count-badge" class="text-xs px-2.5 py-1 rounded-full bg-[#404E3B]/50 text-[#BAC8B1] border border-[#7B9669]/30 font-mono">
+          <span id="listings-count-badge" class="text-xs px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/30 font-bold">
             Cargando...
           </span>
         </div>
 
         <!-- Formulario paramétrico -->
-        <form id="form-amenities-rating" class="bg-[#1c2419]/80 p-4 rounded-xl border border-[#404E3B] flex flex-wrap items-end gap-4">
+        <form id="form-amenities-rating" class="bg-[#F7F7F7] p-4 rounded-xl border border-[#EBEBEB] flex flex-wrap items-end gap-4">
           <div>
-            <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Mínimo de Comodidades (Amenities)</label>
+            <label class="block text-xs font-bold text-[#222222] mb-1">Mínimo de Comodidades (Amenities)</label>
             <input type="number" id="input-min-amenities" min="1" max="100" value="5"
-              class="w-36 px-3 py-2 rounded-lg bg-[#273223] border border-[#404E3B] text-sm text-[#E6E6E6] focus:outline-none focus:border-[#7B9669]" />
+              class="w-36 px-3 py-2 rounded-lg bg-white border border-[#DDDDDD] text-sm text-[#222222] focus:outline-none focus:border-[#FF385C]" />
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-[#BAC8B1] mb-1">Calificación Mínima (0 - 100)</label>
+            <label class="block text-xs font-bold text-[#222222] mb-1">Calificación Mínima (0 - 100)</label>
             <input type="number" id="input-min-rating" min="1" max="100" value="90"
-              class="w-36 px-3 py-2 rounded-lg bg-[#273223] border border-[#404E3B] text-sm text-[#E6E6E6] focus:outline-none focus:border-[#7B9669]" />
+              class="w-36 px-3 py-2 rounded-lg bg-white border border-[#DDDDDD] text-sm text-[#222222] focus:outline-none focus:border-[#FF385C]" />
           </div>
 
-          <button type="submit" class="px-5 py-2 rounded-lg bg-brand-btn text-xs font-bold transition flex items-center gap-2">
+          <button type="submit" class="px-5 py-2.5 rounded-lg bg-brand-btn text-xs font-bold transition flex items-center gap-2">
             <span>✨</span> Aplicar Filtro
           </button>
         </form>
 
-        <!-- Contenedor de cards -->
-        <div id="listings-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <!-- Contenedor de cards estilo Airbnb -->
+        <div id="listings-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
       <!-- CONSULTA 3.3: Top Revisores -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#6C8480] font-bold uppercase">Consulta 3.3</span>
-            <h3 class="text-lg font-bold text-white">Top Revisores con Más Reseñas Escritas</h3>
+            <span class="text-xs font-mono text-[#008489] font-bold uppercase">Consulta 3.3</span>
+            <h3 class="text-lg font-black text-[#222222]">Top Revisores con Más Reseñas Escritas</h3>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-[#BAC8B1]">Mostrar:</span>
-            <select id="select-reviewers-limit" class="px-2.5 py-1 rounded bg-[#273223] border border-[#404E3B] text-xs text-[#E6E6E6]">
+            <span class="text-xs text-[#717171] font-semibold">Mostrar:</span>
+            <select id="select-reviewers-limit" class="px-2.5 py-1 rounded bg-[#F7F7F7] border border-[#DDDDDD] text-xs text-[#222222] font-semibold">
               <option value="5" selected>Top 5</option>
               <option value="10">Top 10</option>
               <option value="15">Top 15</option>
@@ -538,27 +533,27 @@
       </div>
 
       <!-- CONSULTA 3.4: Búsqueda de Texto en Reseñas -->
-      <div class="glass-card p-6 space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#404E3B]/60 pb-3">
+      <div class="glass-card p-6 bg-white border border-[#EBEBEB] rounded-2xl space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-[#EBEBEB] pb-3">
           <div>
-            <span class="text-xs font-mono text-[#BAC8B1] font-bold uppercase">Consulta 3.4</span>
-            <h3 class="text-lg font-bold text-white">Búsqueda de Texto en Reseñas de Usuarios</h3>
+            <span class="text-xs font-mono text-[#FF385C] font-bold uppercase">Consulta 3.4</span>
+            <h3 class="text-lg font-black text-[#222222]">Búsqueda de Texto en Reseñas de Huéspedes</h3>
           </div>
-          <span id="search-reviews-count-badge" class="text-xs px-2.5 py-1 rounded-full bg-[#404E3B]/60 text-[#BAC8B1] border border-[#7B9669]/30 font-mono">
+          <span id="search-reviews-count-badge" class="text-xs px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/30 font-bold">
             Menciones
           </span>
         </div>
 
         <!-- Formulario de búsqueda -->
-        <form id="form-search-reviews" class="bg-[#1c2419]/80 p-4 rounded-xl border border-[#404E3B] flex items-center gap-3">
+        <form id="form-search-reviews" class="bg-[#F7F7F7] p-4 rounded-xl border border-[#EBEBEB] flex items-center gap-3">
           <div class="flex-1 relative">
-            <span class="absolute left-3 top-2.5 text-[#BAC8B1]">🔍</span>
+            <span class="absolute left-3.5 top-3 text-[#717171]">🔍</span>
             <input type="text" id="input-search-text" value="Great Location"
-              placeholder="Escribe el texto a buscar en los comentarios (ej: Great Location, clean, perfect host)..."
-              class="w-full pl-9 pr-4 py-2.5 rounded-lg bg-[#273223] border border-[#404E3B] text-sm text-[#E6E6E6] focus:outline-none focus:border-[#7B9669]" />
+              placeholder="Buscar en las reseñas (ej: Great Location, clean, peaceful, host)..."
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#DDDDDD] text-sm text-[#222222] focus:outline-none focus:border-[#222222]" />
           </div>
-          <button type="submit" class="px-5 py-2.5 rounded-lg bg-brand-btn font-bold text-xs transition">
-            Buscar en Reseñas
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-btn font-bold text-xs transition">
+            Buscar Reseñas
           </button>
         </form>
 
@@ -570,11 +565,11 @@
 
   </main>
 
-  <footer class="glass-nav mt-auto py-4 px-6 text-center text-xs text-[#BAC8B1]/60 border-t border-[#404E3B]/60">
+  <footer class="glass-nav mt-auto py-5 px-6 text-center text-xs text-[#717171] border-t border-[#EBEBEB] bg-white">
     Examen Competencia 1 • Big Data • MongoDB Aggregations & Node.js REST API
   </footer>
 
-  <!-- Scripts ES Modules con paleta Jade pebble morning -->
-  <script type="module" src="/js/app.js?v=jade"></script>
+  <!-- Scripts ES Modules con paleta Airbnb -->
+  <script type="module" src="/js/app.js?v=airbnb"></script>
 </body>
 </html>

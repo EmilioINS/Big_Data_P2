@@ -76,24 +76,23 @@ export const FlightsView = {
       // Render tabla
       if (tbody) {
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-[#BAC8B1]/70">No se encontraron aeropuertos para el país seleccionado.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-[#717171]">No se encontraron aeropuertos para el país seleccionado.</td></tr>`;
         } else {
           tbody.innerHTML = data
             .map(
               (row, idx) => `
-            <tr class="hover:bg-[#253122]/40 transition">
-              <td class="font-bold text-[#BAC8B1]">#${idx + 1}</td>
-              <td class="font-semibold text-white">${row.aeropuerto}</td>
-              <td><span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#404E3B]/50 text-[#BAC8B1] border border-[#7B9669]/30">${row.pais}</span></td>
-              <td class="text-[#BAC8B1] font-semibold">${row.total_visitantes.toLocaleString()}</td>
-              <td class="text-[#7B9669] font-semibold">${row.total_vuelos.toLocaleString()}</td>
+            <tr class="hover:bg-[#F9FAFB] transition">
+              <td class="font-bold text-[#FF385C]">#${idx + 1}</td>
+              <td class="font-bold text-[#222222]">${row.aeropuerto}</td>
+              <td><span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#F7F7F7] text-[#717171] border border-[#EBEBEB]">${row.pais}</span></td>
+              <td class="text-[#222222] font-semibold">${row.total_visitantes.toLocaleString()}</td>
+              <td class="text-[#008489] font-bold">${row.total_vuelos.toLocaleString()}</td>
             </tr>`
             )
             .join('');
         }
       }
 
-      // Render Chart con paleta Jade Pebble Morning
       this.renderTopAirportsChart(data, country, type);
     } catch (error) {
       showToast(`Error al consultar aeropuertos: ${error.message}`, 'error');
@@ -120,8 +119,8 @@ export const FlightsView = {
           {
             label: 'Total Visitantes',
             data: visitantes,
-            backgroundColor: 'rgba(123, 150, 105, 0.85)', // #7B9669
-            borderColor: '#7B9669',
+            backgroundColor: 'rgba(255, 56, 92, 0.85)', // #FF385C
+            borderColor: '#FF385C',
             borderWidth: 1.5,
             borderRadius: 8,
             yAxisID: 'y',
@@ -129,8 +128,8 @@ export const FlightsView = {
           {
             label: 'Total Vuelos',
             data: vuelos,
-            backgroundColor: 'rgba(108, 132, 128, 0.85)', // #6C8480
-            borderColor: '#6C8480',
+            backgroundColor: 'rgba(0, 132, 137, 0.85)', // #008489
+            borderColor: '#008489',
             borderWidth: 1.5,
             borderRadius: 8,
             yAxisID: 'y1',
@@ -142,35 +141,36 @@ export const FlightsView = {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            labels: { color: '#BAC8B1', font: { family: 'Plus Jakarta Sans', size: 12 } },
+            labels: { color: '#222222', font: { family: 'Plus Jakarta Sans', size: 12, weight: 'bold' } },
           },
           tooltip: {
-            backgroundColor: 'rgba(28, 37, 26, 0.95)',
-            titleColor: '#FFFFFF',
-            bodyColor: '#E6E6E6',
-            borderColor: 'rgba(186, 200, 177, 0.3)',
+            backgroundColor: '#FFFFFF',
+            titleColor: '#222222',
+            bodyColor: '#717171',
+            borderColor: '#DDDDDD',
             borderWidth: 1,
             padding: 12,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
           },
         },
         scales: {
           x: {
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#BAC8B1' },
+            grid: { display: false },
+            ticks: { color: '#717171', font: { weight: '600' } },
           },
           y: {
             type: 'linear',
             position: 'left',
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#BAC8B1' },
-            title: { display: true, text: 'Visitantes', color: '#BAC8B1' },
+            grid: { color: '#EBEBEB' },
+            ticks: { color: '#FF385C', font: { weight: 'bold' } },
+            title: { display: true, text: 'Visitantes', color: '#FF385C' },
           },
           y1: {
             type: 'linear',
             position: 'right',
             grid: { drawOnChartArea: false },
-            ticks: { color: '#6C8480' },
-            title: { display: true, text: 'Vuelos', color: '#6C8480' },
+            ticks: { color: '#008489', font: { weight: 'bold' } },
+            title: { display: true, text: 'Vuelos', color: '#008489' },
           },
         },
       },
@@ -192,17 +192,17 @@ export const FlightsView = {
           .slice(0, 25)
           .map(
             (row) => `
-          <tr class="hover:bg-[#253122]/40 transition">
-            <td class="font-mono text-[#BAC8B1]">${row.anio} - M${row.mes.toString().padStart(2, '0')}</td>
-            <td class="font-semibold text-white">${row.aerolinea}</td>
-            <td class="text-[#6C8480] font-semibold">${row.total_vuelos.toLocaleString()}</td>
-            <td class="text-[#BAC8B1] font-semibold">${row.total_pasajeros.toLocaleString()}</td>
-            <td class="text-[#7B9669] font-bold">$${row.total_ganancias.toLocaleString()}</td>
+          <tr class="hover:bg-[#F9FAFB] transition">
+            <td class="font-mono text-[#717171] font-bold">${row.anio} - M${row.mes.toString().padStart(2, '0')}</td>
+            <td class="font-bold text-[#222222]">${row.aerolinea}</td>
+            <td class="text-[#008489] font-bold">${row.total_vuelos.toLocaleString()}</td>
+            <td class="text-[#222222] font-semibold">${row.total_pasajeros.toLocaleString()}</td>
+            <td class="text-[#FF385C] font-black">$${row.total_ganancias.toLocaleString()}</td>
             <td>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-[#BAC8B1]">${row.promedio_factor_ocupacion}%</span>
-                <div class="w-16 bg-[#1b2319] h-1.5 rounded-full overflow-hidden border border-[#404E3B]">
-                  <div class="bg-[#7B9669] h-full rounded-full" style="width: ${row.promedio_factor_ocupacion}%"></div>
+                <span class="text-xs font-mono font-bold text-[#222222]">${row.promedio_factor_ocupacion}%</span>
+                <div class="w-16 bg-[#EBEBEB] h-2 rounded-full overflow-hidden">
+                  <div class="bg-[#FF385C] h-full rounded-full" style="width: ${row.promedio_factor_ocupacion}%"></div>
                 </div>
               </div>
             </td>
@@ -246,8 +246,8 @@ export const FlightsView = {
           {
             label: 'Ingresos Totales (Millones USD)',
             data: revData,
-            borderColor: '#7B9669',
-            backgroundColor: 'rgba(123, 150, 105, 0.15)',
+            borderColor: '#FF385C',
+            backgroundColor: 'rgba(255, 56, 92, 0.08)',
             fill: true,
             tension: 0.35,
             yAxisID: 'y',
@@ -255,7 +255,7 @@ export const FlightsView = {
           {
             label: 'Pasajeros Totales (Miles)',
             data: passData,
-            borderColor: '#BAC8B1',
+            borderColor: '#008489',
             backgroundColor: 'transparent',
             borderDash: [5, 5],
             tension: 0.35,
@@ -267,21 +267,21 @@ export const FlightsView = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { labels: { color: '#BAC8B1' } },
+          legend: { labels: { color: '#222222', font: { weight: 'bold' } } },
         },
         scales: {
-          x: { grid: { color: 'rgba(186, 200, 177, 0.08)' }, ticks: { color: '#BAC8B1' } },
+          x: { grid: { color: '#EBEBEB' }, ticks: { color: '#717171' } },
           y: {
             type: 'linear',
             position: 'left',
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#7B9669', callback: (v) => `$${v}M` },
+            grid: { color: '#EBEBEB' },
+            ticks: { color: '#FF385C', callback: (v) => `$${v}M`, font: { weight: 'bold' } },
           },
           y1: {
             type: 'linear',
             position: 'right',
             grid: { drawOnChartArea: false },
-            ticks: { color: '#BAC8B1', callback: (v) => `${v}k` },
+            ticks: { color: '#008489', callback: (v) => `${v}k`, font: { weight: 'bold' } },
           },
         },
       },
@@ -301,16 +301,16 @@ export const FlightsView = {
         tbody.innerHTML = data
           .map(
             (r, i) => `
-          <tr class="hover:bg-[#253122]/40 transition">
-            <td class="font-bold text-[#BAC8B1]/70">#${i + 1}</td>
-            <td class="font-semibold text-white">${r.aeropuerto_origen}</td>
-            <td class="font-semibold text-[#BAC8B1]">✈️ ${r.aeropuerto_destino}</td>
-            <td class="text-center font-mono text-[#6C8480] font-bold">${r.total_vuelos}</td>
-            <td class="text-right text-[#BAC8B1]">${r.total_pasajeros.toLocaleString()}</td>
-            <td class="text-right font-bold text-[#7B9669]">$${r.total_ganancias.toLocaleString()}</td>
-            <td class="text-right font-mono text-[#E6E6E6]">$${r.promedio_ganancias_vuelo.toLocaleString()}</td>
+          <tr class="hover:bg-[#F9FAFB] transition">
+            <td class="font-bold text-[#717171]">#${i + 1}</td>
+            <td class="font-bold text-[#222222]">${r.aeropuerto_origen}</td>
+            <td class="font-bold text-[#FF385C]">✈️ ${r.aeropuerto_destino}</td>
+            <td class="text-center font-mono text-[#008489] font-bold">${r.total_vuelos}</td>
+            <td class="text-right text-[#222222] font-semibold">${r.total_pasajeros.toLocaleString()}</td>
+            <td class="text-right font-black text-[#FF385C]">$${r.total_ganancias.toLocaleString()}</td>
+            <td class="text-right font-mono font-bold text-[#222222]">$${r.promedio_ganancias_vuelo.toLocaleString()}</td>
             <td>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-[#404E3B]/60 text-[#BAC8B1] border border-[#7B9669]/30">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20">
                 ${r.promedio_factor_ocupacion}%
               </span>
             </td>
@@ -362,13 +362,13 @@ export const FlightsView = {
     tbody.innerHTML = filtered
       .map(
         (r) => `
-      <tr class="hover:bg-[#253122]/40 transition">
-        <td class="font-mono text-[#BAC8B1]">${r.anio}-${r.mes.toString().padStart(2, '0')}</td>
+      <tr class="hover:bg-[#F9FAFB] transition">
+        <td class="font-mono text-[#717171] font-bold">${r.anio}-${r.mes.toString().padStart(2, '0')}</td>
         <td class="font-bold text-base">${medals[r.posicion_jerarquia_mensual] || r.posicion_jerarquia_mensual}</td>
-        <td class="font-semibold text-white">${r.nombre_aerolinea}</td>
-        <td class="text-right font-bold text-[#7B9669]">$${r.total_ganancias.toLocaleString()}</td>
-        <td class="text-right text-[#6C8480]">${r.total_vuelos.toLocaleString()}</td>
-        <td class="text-right text-[#BAC8B1]">${r.total_pasajeros.toLocaleString()}</td>
+        <td class="font-bold text-[#222222]">${r.nombre_aerolinea}</td>
+        <td class="text-right font-black text-[#FF385C]">$${r.total_ganancias.toLocaleString()}</td>
+        <td class="text-right text-[#008489] font-bold">${r.total_vuelos.toLocaleString()}</td>
+        <td class="text-right text-[#222222] font-semibold">${r.total_pasajeros.toLocaleString()}</td>
       </tr>`
       )
       .join('');
@@ -389,7 +389,7 @@ export const FlightsView = {
     const labels = sortedAirlines.slice(0, 6);
     const data = labels.map((l) => Math.round(totals[l] / 1000000));
 
-    // Paleta Jade pebble morning para el ranking
+    // Paleta estilo Airbnb
     chartRanking = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -399,12 +399,12 @@ export const FlightsView = {
             label: 'Ingresos acumulados en Top 5 (Millones USD)',
             data,
             backgroundColor: [
-              '#7B9669',
-              '#6C8480',
-              '#BAC8B1',
-              '#404E3B',
-              '#8fa580',
-              '#5a6f6b',
+              '#FF385C',
+              '#E00B41',
+              '#008489',
+              '#FFB400',
+              '#484848',
+              '#717171',
             ],
             borderRadius: 8,
           },
@@ -419,12 +419,12 @@ export const FlightsView = {
         },
         scales: {
           x: {
-            grid: { color: 'rgba(186, 200, 177, 0.08)' },
-            ticks: { color: '#BAC8B1', callback: (v) => `$${v}M` },
+            grid: { color: '#EBEBEB' },
+            ticks: { color: '#717171', callback: (v) => `$${v}M`, font: { weight: 'bold' } },
           },
           y: {
             grid: { display: false },
-            ticks: { color: '#E6E6E6', font: { weight: '600' } },
+            ticks: { color: '#222222', font: { weight: 'bold' } },
           },
         },
       },

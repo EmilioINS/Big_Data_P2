@@ -3,8 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const uri = process.env.MONGO_URI || 'mongodb+srv://emiliovazpe_db_user:tVS4AJCQB52VopLi@clusterbigdata.lgbe0nu.mongodb.net';
+const uri = process.env.MONGO_URI;
 const dbName = process.env.DB_NAME || 'Examen_P2';
+
+if (!uri) {
+  throw new Error('❌ Error: La variable de entorno MONGO_URI no está definida.');
+}
 
 const client = new MongoClient(uri, {
   maxPoolSize: 20,

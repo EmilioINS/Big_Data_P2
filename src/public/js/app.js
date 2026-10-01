@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = btn.dataset.tab;
 
       // Cambiar clase activa en botones
-      tabButtons.forEach((b) => b.classList.remove('active', 'border-[#7B9669]/50', 'bg-[#7B9669]/20', 'text-[#BAC8B1]'));
-      btn.classList.add('active', 'border-[#7B9669]/50', 'bg-[#7B9669]/20', 'text-[#BAC8B1]');
+      tabButtons.forEach((b) => b.classList.remove('active', 'bg-white', 'text-[#222222]', 'shadow-sm'));
+      btn.classList.add('active', 'bg-white', 'text-[#222222]', 'shadow-sm');
 
       // Ocultar todas las secciones y mostrar la elegida
       Object.values(tabSections).forEach((sec) => {
