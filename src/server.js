@@ -25,8 +25,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// Servir frontend estático
-app.use(express.static(path.join(__dirname, 'public')));
+// Servir frontend estático sin caché para reflejar cambios de diseño inmediatamente
+app.use(express.static(path.join(__dirname, 'public'), {
+  etag: false,
+  maxAge: 0,
+  setHeaders: (res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  }
+}));
 
 // Ruta de estado / health check
 app.get('/api/health', (req, res) => {
