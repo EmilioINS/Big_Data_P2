@@ -155,3 +155,4 @@ Examen_p2/
  Desde el dashboard se pueden consultar los datos de vuelos y Airbnb mediante tablas, gráficas y filtros.
 
  Para procesar la información se utiliza principalmente el **Aggregation Framework de MongoDB**.
+
